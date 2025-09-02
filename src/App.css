@@ -34,6 +34,7 @@ body {
 
 .btn-primary {
   background: radial-gradient(circle at 50px -20px, oklch(62.3% .214 259.815) 0%, oklch(80.9% .105 251.813) 70%);
+  transition: background 0.3s ease;
   color: white;
   border: none;
   position: relative;
@@ -84,16 +85,16 @@ body {
 }
 
 .btn-primary:hover {
-  background: radial-gradient(circle at 0px 0px, oklch(55% .25 259.815) 0%, oklch(75% .12 251.813) 70%);
-  transform: translateY(-2px);
+  background: radial-gradient(circle at 50px -20px, oklch(45% .22 259.815) 0%, oklch(80.9% .105 251.813) 70%);
   box-shadow: 
-    0 8px 32px rgba(99, 102, 241, 0.4),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+    0 4px 20px rgba(99, 102, 241, 0.25),
+    2px 2px 0px 0px rgba(89, 136, 218, 0.7), /* hard shadow bottom right */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .btn-primary:hover::before {
-  filter: blur(1.5px);
-  border-color: rgba(255, 255, 255, 0.9);
+  filter: blur(2px);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .btn-secondary {
