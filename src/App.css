@@ -40,6 +40,7 @@ body {
   overflow: hidden;
   box-shadow: 
     0 4px 20px rgba(99, 102, 241, 0.25),
+  2px 2px 0px 0px rgba(89, 136, 218, 0.7), /* hard shadow bottom right */
     inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
@@ -72,6 +73,14 @@ body {
   opacity: 0.8;
   pointer-events: none;
   z-index: 0;
+
+  /* Stronger rim only on bottom and right, offset */
+  box-shadow:
+    3px 3px 0 0 rgba(255, 255, 255, 0.55);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.35);
+  border-right: 3px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0 0 8px 0;
+  filter: blur(1.5px);
 }
 
 .btn-primary:hover {
