@@ -30,33 +30,6 @@ const ChatbotPage: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
-  const simulateBotResponse = (userMessage: string): string => {
-    const responses = [
-      "That's a great question! Let me help you with that.",
-      "I understand. Can you tell me more about what you're trying to learn?",
-      "Excellent! Let's practice some vocabulary together.",
-      "That's interesting! Have you tried using that phrase in conversation?",
-      "Good job! Let's work on pronunciation next.",
-      "I see you're making progress. What other topics would you like to explore?",
-      "That's a common challenge in language learning. Let's break it down step by step.",
-      "Perfect! Your language skills are improving. Keep up the great work!"
-    ];
-    
-    if (userMessage.toLowerCase().includes('hello') || userMessage.toLowerCase().includes('hi')) {
-      return "Hello! Nice to meet you. What language would you like to practice today?";
-    }
-    
-    if (userMessage.toLowerCase().includes('spanish')) {
-      return "¡Excelente! Let's practice Spanish. Can you tell me about your hobbies in Spanish?";
-    }
-    
-    if (userMessage.toLowerCase().includes('french')) {
-      return "Magnifique! Let's practice French. Can you introduce yourself in French?";
-    }
-    
-    return responses[Math.floor(Math.random() * responses.length)];
-  };
-
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
 
@@ -71,18 +44,49 @@ const ChatbotPage: React.FC = () => {
     setInputMessage('');
     setIsLoading(true);
 
-    // Simulate API delay
-    setTimeout(() => {
+    try {
+      // Send POST request to the API server
+      const response = await fetch('http://microlang-api:8000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors', // Enable CORS
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const botMessage = data.message || "Sorry, I couldn't process your message.";
+
       const botResponse: Message = {
         id: messages.length + 2,
-        text: simulateBotResponse(inputMessage),
+        text: botMessage,
         isUser: false,
         timestamp: new Date()
       };
-      
+
       setMessages(prev => [...prev, botResponse]);
+    } catch (error) {
+      console.error('Error calling API:', error);
+      let errorMessage = "Sorry, I'm having trouble connecting to the server. Please try again later.";
+      
+      if (error instanceof TypeError && error.message.includes('CORS')) {
+        errorMessage = "CORS error: Please check your server configuration for cross-origin requests.";
+      }
+      
+      const errorResponse: Message = {
+        id: messages.length + 2,
+        text: errorMessage,
+        isUser: false,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorResponse]);
+    } finally {
       setIsLoading(false);
-    }, 1000 + Math.random() * 1000);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
