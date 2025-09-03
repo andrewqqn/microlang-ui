@@ -3,6 +3,17 @@
 /* Custom theme configuration for Tailwind v4 */
 @theme {
   --font-size-hero: 20rem;
+  /* --color-primary-50: oklch(95% 0.05 150);
+  --color-primary-100: oklch(90% 0.08 150);
+  --color-primary-200: oklch(85% 0.12 150);
+  --color-primary-300: oklch(80% 0.16 150);
+  --color-primary-400: oklch(70% 0.18 150);
+  --color-primary-500: oklch(62% 0.22 150);
+  --color-primary-600: oklch(55% 0.24 150);
+  --color-primary-700: oklch(45% 0.22 150);
+  --color-primary-800: oklch(35% 0.18 150);
+  --color-primary-900: oklch(25% 0.15 150); */
+
   --color-primary-50: oklch(95% 0.05 259.815);
   --color-primary-100: oklch(90% 0.08 259.815);
   --color-primary-200: oklch(85% 0.12 251.813);

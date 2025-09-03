@@ -4,12 +4,43 @@ import { Link } from 'react-router-dom';
 const LandingPage: React.FC = () => {
   console.log('LandingPage component loaded - timestamp:', new Date().toISOString());
   return (
-    <div className="min-h-screen bg-white text-gray-900 flex flex-col font-sans px-12 py-16">
+    <div className="min-h-screen bg-white text-gray-900 flex flex-col font-sans">
+      {/* Navbar */}
+      <nav className="bg-white border-b border-gray-100 px-6 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center">
+            <Link to="/" className="text-2xl font-bold text-gray-900 hover:text-gray-700 transition-colors">
+              microlang
+            </Link>
+          </div>
+          
+          <div className="flex items-center space-x-8">
+            <Link 
+              to="/dating-sim" 
+              className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
+            >
+              Dating Sim
+            </Link>
+            <Link 
+              to="/pricing" 
+              className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
+            >
+              Pricing
+            </Link>
+            <Link 
+              to="/contact" 
+              className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
+            >
+              Contact
+            </Link>
+          </div>
+        </div>
+      </nav>
       
       <main className="flex-1 px-8 py-16 max-w-6xl mx-auto w-full">
         <section className="text-center mb-24 py-12">
           <h2 className="text-5xl mb-10 font-bold text-gray-700 tracking-tight max-w-4xl mx-auto">
-            Learn Languages with AI-Powered Conversations
+            LLMs and Comprehensible Input.
           </h2>
           <p className="text-xl text-gray-600 mb-16 max-w-3xl mx-auto leading-relaxed">
             Experience personalized language learning through interactive 
@@ -17,8 +48,8 @@ const LandingPage: React.FC = () => {
           </p>
           
           <div className="flex flex-wrap gap-6 justify-center">
-            <Link to="/login" className="btn btn-primary px-8 py-3">
-              Get Started
+            <Link to="/login" className="btn btn-primary px-8 py-3 w-sm">
+              Get Started for Free
             </Link>
             <Link to="/overview" className="btn btn-black px-8 py-3">
               Learn More
