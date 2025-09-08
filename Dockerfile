@@ -21,4 +21,7 @@ COPY --from=builder /app/dist .
 
 EXPOSE 80
 
+ARG VITE_API_URL
+ENV VITE_API_URL=http://165.22.155.118:8000
+
 CMD ["nginx", "-g", "daemon off;"]
