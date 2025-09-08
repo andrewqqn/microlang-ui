@@ -46,11 +46,12 @@ const ChatbotPage: React.FC = () => {
 
     try {
       // Send POST request to the API server
-      const response = await fetch('http://microlang-api:8000/chat', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ message: inputMessage }),
         mode: 'cors', // Enable CORS
       });
 
