@@ -52,7 +52,6 @@ const ChatbotPage: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message: inputMessage }),
-        mode: 'cors', // Enable CORS
       });
 
       if (!response.ok) {
