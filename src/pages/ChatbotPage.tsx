@@ -46,10 +46,12 @@ const ChatbotPage: React.FC = () => {
 
     try {
       // Send POST request to the API server
+      // const token = localStorage.getItem('authToken');
       const response = await fetch(`${import.meta.env.VITE_API_URL}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ message: inputMessage }),
       });
@@ -96,6 +98,34 @@ const ChatbotPage: React.FC = () => {
     }
   };
 
+  const handleWipeDb = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/wipe_db`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Clear local messages after successful wipe
+      setMessages([
+        {
+          id: 1,
+          text: "Hello! I'm your language learning assistant. What would you like to practice today?",
+          isUser: false,
+          timestamp: new Date()
+        }
+      ]);
+    } catch (error) {
+      console.error('Error wiping database:', error);
+      // Optionally, show an error message to the user
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
       <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4 flex-shrink-0">
@@ -104,12 +134,20 @@ const ChatbotPage: React.FC = () => {
             <h1 className="text-2xl font-bold text-gray-800">Language Chat</h1>
             <span className="text-gray-600">Welcome, {user?.name}</span>
           </div>
-          <button 
-            onClick={logout} 
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors duration-200"
-          >
-            Logout
-          </button>
+          <div className="flex gap-2">
+            <button 
+              onClick={handleWipeDb} 
+              className="px-4 py-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors duration-200"
+            >
+              Wipe DB
+            </button>
+            <button 
+              onClick={logout} 
+              className="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </header>
 
